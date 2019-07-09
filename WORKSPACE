@@ -16,6 +16,8 @@ switched_rules_by_language(
     go = True,
     grpc = True,
     java = True,
+    nodejs = True,
+    php = True,
 )
 
 # Note gapic-generator contains java-specific and common code, that is why it is imported in common
@@ -176,3 +178,16 @@ py_gapic_repositories()
 #
 # load("@com_github_grpc_grpc//bazel:grpc_python_deps.bzl", "grpc_python_deps")
 # grpc_python_deps()
+
+##############################################################################
+# PHP
+##############################################################################
+
+load("@com_google_api_codegen//rules_gapic/php:php_gapic_repositories.bzl", "php", "php_gapic_repositories")
+
+php(
+    name = "php",
+    version = "7.1.30",
+)
+
+php_gapic_repositories()
