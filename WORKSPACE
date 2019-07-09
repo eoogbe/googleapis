@@ -1,6 +1,7 @@
 workspace(name = "com_google_googleapis")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 ##############################################################################
 # Common
@@ -19,10 +20,15 @@ switched_rules_by_language(
 
 # Note gapic-generator contains java-specific and common code, that is why it is imported in common
 # section
-http_archive(
+# http_archive(
+#     name = "com_google_api_codegen",
+#     strip_prefix = "gapic-generator-b465d5651c29c344e90515172cbe662fcb296dd8",
+#     urls = ["https://github.com/googleapis/gapic-generator/archive/b465d5651c29c344e90515172cbe662fcb296dd8.zip"],
+# )
+
+local_repository(
     name = "com_google_api_codegen",
-    strip_prefix = "gapic-generator-b465d5651c29c344e90515172cbe662fcb296dd8",
-    urls = ["https://github.com/googleapis/gapic-generator/archive/b465d5651c29c344e90515172cbe662fcb296dd8.zip"],
+    path = "../gapic-generator",
 )
 
 ##############################################################################
@@ -137,3 +143,36 @@ load(
 )
 
 com_google_gapic_generator_cpp_repositories()
+
+###############
+# Python
+###############
+
+load("@com_google_api_codegen//rules_gapic/python:py_gapic_repositories.bzl", "py_gapic_repositories")
+
+py_gapic_repositories()
+
+# git_repository(
+#     name = "io_bazel_rules_python",
+#     commit = "fdbb17a4118a1728d19e638a5291b4c4266ea5b8",
+#     remote = "https://github.com/bazelbuild/rules_python.git",
+# )
+#
+# load("@io_bazel_rules_python//python:pip.bzl", "pip_import")
+#
+# http_archive(
+#     name = "com_github_grpc_grpc",
+#     strip_prefix = "grpc-1.21.1",
+#     urls = ["https://github.com/grpc/grpc/archive/v1.21.1.zip"],
+# )
+#
+# pip_import(
+#     name = "grpc_python_dependencies",
+#     requirements = "@com_github_grpc_grpc//:requirements.bazel.txt",
+# )
+#
+# load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
+# grpc_deps()
+#
+# load("@com_github_grpc_grpc//bazel:grpc_python_deps.bzl", "grpc_python_deps")
+# grpc_python_deps()
