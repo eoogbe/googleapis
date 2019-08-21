@@ -5,6 +5,7 @@ package(default_visibility = ["//visibility:public"])
 # Common
 ##############################################################################
 load("@com_google_googleapis_imports//:imports.bzl", "proto_library_with_info")
+load("@com_google_api_codegen//rules_gapic:gapic.bzl", "moved_proto_library")
 
 proto_library(
     name = "language_proto",
@@ -19,6 +20,18 @@ proto_library(
 proto_library_with_info(
     name = "language_proto_with_info",
     deps = [":language_proto"],
+)
+
+moved_proto_library(
+    name = "language_moved_proto",
+    srcs = [":language_proto"],
+    import_prefix = "google/cloud/language_v1/proto",
+    strip_import_prefix = "google/cloud/language/v1",
+    deps = [
+        "//google/api:annotations_proto",
+        "//google/api:client_proto",
+        "//google/api:field_behavior_proto",
+    ],
 )
 
 ##############################################################################

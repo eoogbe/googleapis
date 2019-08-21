@@ -22,10 +22,15 @@ switched_rules_by_language(
 
 # Note gapic-generator contains java-specific and common code, that is why it is imported in common
 # section
-http_archive(
+# http_archive(
+#     name = "com_google_api_codegen",
+#     strip_prefix = "gapic-generator-90cbd714fcb0e969131ea16cc3f14073024254aa",
+#     urls = ["https://github.com/googleapis/gapic-generator/archive/90cbd714fcb0e969131ea16cc3f14073024254aa.zip"],
+# )
+
+local_repository(
     name = "com_google_api_codegen",
-    strip_prefix = "gapic-generator-90cbd714fcb0e969131ea16cc3f14073024254aa",
-    urls = ["https://github.com/googleapis/gapic-generator/archive/90cbd714fcb0e969131ea16cc3f14073024254aa.zip"],
+    path = "../gapic-generator",
 )
 
 ##############################################################################
