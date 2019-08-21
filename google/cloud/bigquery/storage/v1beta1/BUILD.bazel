@@ -9,6 +9,7 @@ load("@com_google_googleapis_imports//:imports.bzl", "proto_library_with_info")
 proto_library(
     name = "bigquerystorage_proto",
     srcs = [
+        "arrow.proto",
         "avro.proto",
         "read_options.proto",
         "storage.proto",
@@ -16,6 +17,7 @@ proto_library(
     ],
     deps = [
         "//google/api:annotations_proto",
+        "//google/api:client_proto",
         "//google/api:resource_proto",
         "@com_google_protobuf//:empty_proto",
         "@com_google_protobuf//:timestamp_proto",
@@ -145,4 +147,26 @@ go_gapic_assembly_pkg(
         ":bigquerystorage_go_gapic_srcjar-test.srcjar",
         ":bigquerystorage_go_proto",
     ],
+)
+
+##############################################################################
+# C++
+##############################################################################
+load(
+    "@com_google_googleapis_imports//:imports.bzl",
+    "cc_grpc_library",
+    "cc_proto_library",
+)
+
+cc_proto_library(
+    name = "bigquerystorage_cc_proto",
+    deps = [":bigquerystorage_proto"],
+)
+
+cc_grpc_library(
+    name = "bigquerystorage_cc_grpc",
+    srcs = [":bigquerystorage_proto"],
+    generate_mocks = True,
+    grpc_only = True,
+    deps = [":bigquerystorage_cc_proto"],
 )
