@@ -144,8 +144,6 @@ py_gapic_library(
     src = ":language_proto_with_info",
     gapic_yaml = "language_gapic.yaml",
     service_yaml = "//google/cloud/language:language_v1.yaml",
-    organization_name = "google-cloud",
-    dep_packages = ["google-common-protos"],
 )
 
 py_gapic_assembly_pkg(
