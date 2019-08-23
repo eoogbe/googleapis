@@ -150,6 +150,19 @@ go_gapic_assembly_pkg(
     ],
 )
 
+############################################################################
+# Python
+############################################################################
+
+load("@com_google_api_codegen//rules_gapic/python:py_gapic.bzl", "py_gapic_library")
+
+py_gapic_library(
+    name = "pubsub_py_gapic",
+    src = ":pubsub_proto_with_info",
+    gapic_yaml = "pubsub_gapic.yaml",
+    service_yaml = "//google/pubsub:pubsub.yaml",
+)
+
 ##############################################################################
 # PHP
 ##############################################################################
